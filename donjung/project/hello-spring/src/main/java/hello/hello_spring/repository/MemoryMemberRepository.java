@@ -1,9 +1,11 @@
 package hello.hello_spring.repository;
 
 import hello.hello_spring.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+//@Repository // 아노테이션을 추가해야 스프링이 올라올 때 스프링이 컨테이너에 등록함
 public class MemoryMemberRepository implements  MemberRepository {
 
     private static Map<Long, Member> store = new HashMap<>(); // 실무에서는 동시성 문제때문에 Concurrent HashMap 사용
