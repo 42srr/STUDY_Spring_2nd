@@ -1,34 +1,28 @@
 package hello.hello_spring.service;
 
 import hello.hello_spring.domain.Member;
+import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+// 통합테스트, 스프링과 db까지 띄워서 실행되는 테스트
+@SpringBootTest
+@Transactional // 테스트 시작 전 트랜잭션을 걸고 테스트 후 롤백되기 때문에 DB에 반영이 안됨.
 
-// 단위 테스트 최소한의 단위로 실행되는 빠른테스트
-// 순수한 단위테스트를 잘 만드는게 좋은 테스트일 확률이 높다.
-class MemberServiceTest { // ctrl + shift + t로 자동생성 가능
+class MemberServiceIntegrationTest { // ctrl + shift + t로 자동생성 가능
 
-    MemberService memberService;
-    MemoryMemberRepository memberRepository;
-
-    @BeforeEach
-    public void beforeEach() {
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    } // DI, Dependency Injection
-
-    @AfterEach
-    public void afterEach() {
-        memberRepository.clearStore();
-    }
+    @Autowired MemberService memberService;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     void 회원가입() {
@@ -67,11 +61,4 @@ class MemberServiceTest { // ctrl + shift + t로 자동생성 가능
         //then
     }
 
-    @Test
-    void findMembers() {
-    }
-
-    @Test
-    void findOne() {
-    }
 }
