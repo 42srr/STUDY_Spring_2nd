@@ -32,9 +32,9 @@ public class MemberService {
 //            throw new IllegalStateException("이미 존재하는 회원입니다.");
 //        });
 //        memberRepository.save(member);
-        validateDuplicatedMember(member); //중복 회원 검증 (extract 로 리팩토링 함)
-        memberRepository.save(member);
-        return member.getId();
+            validateDuplicatedMember(member); //중복 회원 검증 (extract 로 리팩토링 함)
+            memberRepository.save(member);
+            return member.getId();
     }
 
     private void validateDuplicatedMember(Member member) {
@@ -48,7 +48,7 @@ public class MemberService {
      * 전체 회원 조회
      */
     public List<Member> findMembers() {
-        return memberRepository.findAll();
+            return memberRepository.findAll();
     }
 
     public Optional<Member> findOne(Long memberId) {
