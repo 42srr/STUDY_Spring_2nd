@@ -5,10 +5,12 @@ import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional // Jpa를 쓸 때 항상 트랜잭션이 있어야 함. 데이터를 저장하고 변경할 때 필요
 //@Service // 아노테이션을 추가해야 스프링이 올라올 때 스프링이 컨테이너에 등록함
 public class MemberService {
 
@@ -30,7 +32,7 @@ public class MemberService {
 //            throw new IllegalStateException("이미 존재하는 회원입니다.");
 //        });
 //        memberRepository.save(member);
-        validateDuplicatedMember(member); //중복 회원 검증 (extract로 리팩토링 함)
+        validateDuplicatedMember(member); //중복 회원 검증 (extract 로 리팩토링 함)
         memberRepository.save(member);
         return member.getId();
     }
