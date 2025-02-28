@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TimeTraceAop {
 
-    @Around("execution(* hello.hello_spring..*(..))") // 원하는 적용대상 선택하는 구문
+    @Around("execution(* hello.hello_spring..*(..))")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
         System.out.println("START: " + joinPoint.toString());
         try {
-            return joinPoint.proceed(); // 꿀팁: ctrl alt n 인라인 합치기
+            return joinPoint.proceed();
         } finally {
             long finish = System.currentTimeMillis();
             long timeMs = finish - start;
